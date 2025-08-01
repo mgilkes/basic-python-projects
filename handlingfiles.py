@@ -34,13 +34,26 @@ print("\n\n")
 # Ask for user input for file name to open
 filename = input('Enter the file name to open: ')
 
-contents = ''
-with open(filename, 'r') as fh:
-    count = 0
-    for line in fh:
-        count += 1
-        contents += line
+try:
+    contents = ''
+    with open(filename, 'r') as fh:
+        count = 0
+        for line in fh:
+            count += 1
+            contents += line
 
-print('There are', count, 'lines in', filename)
-print('=============================================')
-print(contents)
+    print('There are', count, 'lines in', filename)
+    print('=============================================')
+    print(contents)
+except FileNotFoundError:
+    # provide specific message that the file was not found
+    print('This file was not found:', filename)
+except PermissionError:
+    # provide permission based error message
+    print('You do not have permission to access the file:', filename)
+except OSError as e:
+    # display OSError/IOError message
+    print('An I/O Error occurred:', str(e))
+except Exception as e:
+    #display any other type of error
+    print('An unexpected error occurred:', repr(e))
