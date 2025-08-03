@@ -57,3 +57,47 @@ except OSError as e:
 except Exception as e:
     #display any other type of error
     print('An unexpected error occurred:', repr(e))
+
+# add some space in the CLI
+print("\n\n")
+
+# Now, I am going to show writing to files
+# First, I'll create a file and write to it.
+try :
+    filename = 'samples/newfile.txt' 
+    fh = open(filename, 'x')
+    fh.write("This is a new file.\nThe second line in the file has this sentence.\n\nThis is good.")
+    fh.close()
+except FileExistsError as e:
+    # The file already exists
+    print(repr(e))
+    print("The file, ", filename, ", already exists!")
+    print("So, let's edit the existing file...\n")
+except Exception as e:
+    #display any other type of error
+    print('An unexpected error occurred:', repr(e))
+
+# Append some text to the existing file
+# Open file with mode 'a'
+writingfile = 'samples/testwriting.txt'
+fh = open(writingfile, 'a')
+fh.write("\n\nThis is an additional line I am adding to an existing file")
+fh.close()
+
+# Display the contents of the file
+print("=====================================\n")
+with open(writingfile, 'r') as fh:
+    for line in fh:
+        print(line)
+
+# Replace the content of the file
+# Open file with mode 'w'
+with open(filename, 'w') as fh:
+    fh.write("The previous contents are erased\n\nThis is a new second line.")
+
+# Display the contents of the file
+print("=====================================\n")
+with open(filename, 'r') as fh:
+    for line in fh:
+        print(line)
+
